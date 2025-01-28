@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		html, body{
+			width: 100%;
+			height: 100%;
+		}
+		body{
+			margin:0;
+			overflow-x: hidden;
+		}
+		main{
+			width: 100%;
+			top:0;
+		}
+		section{
+			width: 100%;
+			height: 200vh;
+		}
+		div{
+			position: fixed;
+			width: 100%;			
+			height: 100%;
+			top:50%;
+			left:50%;
+			transform: translate(-50%, -50%);
+		}
+		.hide{
+			display: none;
+		}
+		img{
+			display: block;
+			width: 100%; 
+			height: 100%;
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<!-- <section class="project" style="background: cyan;"> -->
+		<section class="project">
+			<div class="" >
+				<img src="Image1.webp">
+			</div>
+		</section>
+		<!-- <section class="project" style="background: yellow;"> -->
+		<section class="project">
+			<div class="hide" >
+				<img src="Image2.webp">
+			</div>
+		</section>
+		<!-- <section class="project" style="background: magenta;"> -->
+		<section class="project">
+			<div class="hide" >
+				<img src="Image3.webp">
+			</div>
+		</section>
+
+		<section class="project">
+			<div class="hide" >
+				<img src="Image4.webp">
+			</div>
+		</section>
+
+		<section class="project">
+			<div class="hide" >
+				<img src="Image5.webp">
+			</div>
+		</section>
+
+		<section class="project">
+			<div class="hide" >
+				<img src="Image6.webp">
+			</div>
+		</section>
+
+		<section class="project">
+			<div class="hide" >
+				<img src="Image7.webp">
+			</div>
+		</section>
+
+		<section class="project">
+			<div class="hide" >
+				<img src="Image8.webp">
+			</div>
+		</section>
+
+		<section></section>
+
+		<section style="position:fixed; top:0; left:0; height:fit-content;">
+			<img style="width: 398px; height:165px; max-width: 398px; max-height:165px; object-fit: fill;" src="nav.png">
+		</section>
+
+	</main>
+	<script type="text/javascript">
+		let sections = document.querySelectorAll('section.project');
+		let height = window.innerHeight * 2;
+
+		scrollIt()
+		window.addEventListener("scroll", scrollIt);
+
+		function scrollIt(){
+			let scroll = this.scrollY;
+			console.log(scroll)
+
+
+			for(let i=0; i<sections.length; i+=1){
+				let div = sections[i].querySelector('div');
+
+				let h = (height*i - scroll) + height;
+				if (h < 0) { h = 0;}
+
+				if (h < window.innerHeight){
+					div.style.opacity = map(h, 0, window.innerHeight / 4, 0, 1)
+				} else {
+					opacity = 1;
+				}
+
+				console.log(div.id +": "+ h);
+
+				div.style.transform = `translate(-50%, -50%) scale(${map(h, height, 0, 0.1, 1.5)})`;
+
+				if (height * i < scroll && scroll < height * (i+1)){
+					let all = document.querySelectorAll('div');
+					all.forEach(one=>{
+						one.className = 'hide'
+					})
+					div.className = '';
+				}
+			}
+		}
+
+		function map(n, start1, stop1, start2, stop2) {
+			return ((n-start1)/(stop1-start1))*(stop2-start2)+start2;
+		};
+	</script>
+</body>
+</html>
